@@ -9,7 +9,7 @@
         <h3 class="text-lg font-semibold mb-4">Aulas do Curso</h3>
         <ul class="space-y-3 text-gray-700">
           <li>
-            <a href="{{ route('lesson') }}" class="flex items-center gap-2 hover:text-indigo-600">
+            <a href="{{ route('lesson.index') }}" class="flex items-center gap-2 hover:text-indigo-600">
               <span class="text-sm">1.</span> Introdução ao Curso
             </a>
           </li>
@@ -57,7 +57,7 @@
               <p class="text-gray-500 text-sm">Acesso vitalício</p>
               <p class="text-3xl font-semibold text-green-600 mt-1">R$ 199,00</p>
             </div>
-            <a href="{{ route('checkout') }}"
+            <a href="{{ route('checkout.index') }}"
               class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition"
             >
               Comprar Curso
