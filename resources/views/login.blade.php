@@ -5,7 +5,7 @@
     <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
       <h1 class="text-3xl font-bold text-center mb-6">Entrar na sua conta</h1>
 
-      <form method="POST" action="#" class="space-y-5">
+      <form method="POST" action="{{ route('login.store') }}" class="space-y-5">
         <!-- E-mail -->
         <div>
           <label for="email" class="block text-sm font-medium mb-1">E-mail</label>
