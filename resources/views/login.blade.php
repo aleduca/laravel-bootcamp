@@ -4,34 +4,57 @@
 <div class="md:col-span-3 flex justify-center items-center">
     <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
       <h1 class="text-3xl font-bold text-center mb-6">Entrar na sua conta</h1>
+{{--
+      @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="text-red-600 italic">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif --}}
 
       <form method="POST" action="{{ route('login.store') }}" class="space-y-5">
+        @csrf
         <!-- E-mail -->
-        <div>
+        <div class="mb-2">
           <label for="email" class="block text-sm font-medium mb-1">E-mail</label>
           <input
             id="email"
             name="email"
             type="email"
-            value="{{ old('email') }}"
-            required
             autofocus
             class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
             placeholder="seu@email.com"
           >
+          @error('email') <span class="text-red-600 italic text-center">{{ $message }}</span> @enderror
         </div>
 
         <!-- Senha -->
-        <div class="mb-1">
+        <div class="mb-2">
           <label for="password" class="block text-sm font-medium mb-1">Senha</label>
           <input
             id="password"
             name="password"
             type="password"
-            required
             class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
             placeholder="••••••••"
           >
+          @error('password') <span class="text-red-600 italic text-center">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="mb-2">
+          <label for="password_confirmation" class="block text-sm font-medium mb-1">Confirmar Senha</label>
+          <input
+            id="password_confirmation"
+            name="password_confirmation"
+            type="password_confirmation"
+            class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
+            placeholder="••••••••"
+          >
+          @error('password_confirmation') <span class="text-red-600 italic text-center">{{ $message }}</span> @enderror
+
         </div>
 
         <!-- Lembrar login -->
@@ -48,7 +71,7 @@
         <!-- Botão -->
         <button
           type="submit"
-          class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors mt-1"
+          class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors mt-1 cursor-pointer"
         >
           Entrar
         </button>

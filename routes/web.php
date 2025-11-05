@@ -16,6 +16,7 @@ Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::resource('login', LoginController::class)->only([
   'index',
-  'store'
+  'store',
+  'destroy'
 ]);
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
