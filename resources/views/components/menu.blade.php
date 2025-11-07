@@ -4,6 +4,6 @@
   <a href="{{ route('home.index') }}" class="hover:text-indigo-600">Home</a>
   <a href="{{ route('courses.index') }}" class="hover:text-indigo-600">Meus Cursos</a>
   <a href="{{ route('contact.index') }}" class="hover:text-indigo-600">Contact</a>
-  <a href="{{ route('login.index') }}" class="hover:text-indigo-600">Login</a>
+  <x-link-login-logout />
 </nav>
 </div>

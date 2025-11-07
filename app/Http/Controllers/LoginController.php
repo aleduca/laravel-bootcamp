@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,11 +27,19 @@ class LoginController extends Controller
   }
 
   /**
-   * Store a newly created resource in storage.
+   * @param Request $request
    */
   public function store(LoginRequest $request)
   {
-    dd($request->safe()->only(['email', 'password']));
+    if (Auth::attempt($request->safe()->only(['email', 'password']))) {
+      $request->session()->regenerate();
+
+      return back()->with('success', 'Logado com sucesso');
+    }
+
+    return back()->with([
+      'error' => 'The provided credentials do not match our records.',
+    ])->onlyInput('email');
   }
 
   /**

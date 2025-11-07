@@ -15,6 +15,18 @@
         </div>
     @endif --}}
 
+    @if (session()->has('success'))
+        <div class="bg-green-600 text-white text-center italic p-2 rounded text-sm mb-2">{{ session()->get('success') }}</div>
+    @endif
+
+     @if (session()->has('error'))
+        <div class="bg-red-600 text-white text-center italic p-2 rounded text-sm mb-2">{{ session()->get('error') }}</div>
+    @endif
+
+    {{-- @if ($errors->has('error'))
+        <div class="bg-red-600 text-white text-center italic p-2 rounded text-sm mb-2">{{ $errors->first('error') }}</div>
+    @endif --}}
+
       <form method="POST" action="{{ route('login.store') }}" class="space-y-5">
         @csrf
         <!-- E-mail -->
@@ -24,6 +36,7 @@
             id="email"
             name="email"
             type="email"
+            value="{{ old('email') }}"
             autofocus
             class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
             placeholder="seu@email.com"
@@ -49,7 +62,7 @@
           <input
             id="password_confirmation"
             name="password_confirmation"
-            type="password_confirmation"
+            type="password"
             class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
             placeholder="••••••••"
           >
