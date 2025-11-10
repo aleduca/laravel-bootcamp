@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -66,5 +67,37 @@ class User extends Authenticatable
   public function replies(): HasMany
   {
     return $this->hasMany(Reply::class);
+  }
+
+  public function avatarColor(): Attribute
+  {
+    return Attribute::make(
+      get: function () {
+        $colors = [
+          'bg-indigo-600',
+          'bg-blue-600',
+          'bg-green-600',
+          'bg-purple-600',
+          'bg-pink-600',
+          'bg-yellow-500',
+          'bg-red-600',
+          'bg-orange-500',
+        ];
+        // 4/8
+        return $colors[$this->id % count($colors)];
+      }
+    )->shouldCache();
+  }
+
+  public function initials(): Attribute
+  {
+    return Attribute::make(
+      get: function () {
+        $first = mb_substr($this->firstName ?? '', 0, 1);
+        $last = mb_substr($this->lastName ?? '', 0, 1);
+
+        return strtoupper($first . $last);
+      }
+    )->shouldCache();
   }
 }
