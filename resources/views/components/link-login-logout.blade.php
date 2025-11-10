@@ -37,7 +37,11 @@
         @csrf
         @method('DELETE')
          <button type="submit"
+<<<<<<< HEAD
                     class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer">
+=======
+                class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer">
+>>>>>>> 22710d0912bb9dd7a39cf44f9fac668cdfefe9b5
           Logout
         </button>
       </form>
