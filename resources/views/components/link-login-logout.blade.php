@@ -4,19 +4,11 @@
 }" class="relative">
     <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none cursor-pointer">
       {{-- Avatar --}}
-      @if (auth()->user()->profile?->avatar)
-        <img src="{{ asset(auth()->user()->profile->avatar) }}"
-              alt="{{ auth()->user()->firstName }}"
-              class="w-8 h-8 rounded-full object-cover border border-gray-300">
-      @else
-        <div class="w-10 h-10 flex items-center justify-center text-white font-semibold rounded-full bg-indigo-600">
-          CL
-        </div>
-      @endif
+      <x-avatar />
 
       {{-- Nome --}}
       <span class="text-sm font-medium text-gray-700">
-        {{ auth()->user()->firstName }} {{ auth()->user()->lastName }}
+        {{ auth()->user()->fullName }}
       </span>
 
       {{-- Ícone seta --}}
@@ -41,7 +33,14 @@
           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
         Perfil
       </a>
-      <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="{{ route('login.destroy') }}">Logout</a>
+      <form action="{{ route('login.destroy') }}" method="post">
+        @csrf
+        @method('DELETE')
+         <button type="submit"
+                    class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer">
+          Logout
+        </button>
+      </form>
     </div>
   </div>
 @else
