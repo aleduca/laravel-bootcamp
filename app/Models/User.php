@@ -100,4 +100,9 @@ class User extends Authenticatable
       }
     )->shouldCache();
   }
+
+  public function getFullNameAttribute(): string
+  {
+    return $this->firstName . ' ' . $this->lastName;
+  }
 }

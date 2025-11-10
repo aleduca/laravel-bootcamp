@@ -8,7 +8,7 @@
 
       {{-- Nome --}}
       <span class="text-sm font-medium text-gray-700">
-        {{ auth()->user()->firstName }} {{ auth()->user()->lastName }}
+        {{ auth()->user()->fullName }}
       </span>
 
       {{-- Ícone seta --}}
