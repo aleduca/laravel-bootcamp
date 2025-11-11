@@ -16,10 +16,6 @@
         </div>
     @endif --}}
 
-    @if (session()->has('success'))
-        <div class="bg-green-600 text-white text-center italic p-2 rounded text-sm mb-2">{{ session()->get('success') }}</div>
-    @endif
-
      @if (session()->has('error'))
         <div class="bg-red-600 text-white text-center italic p-2 rounded text-sm mb-2">{{ session()->get('error') }}</div>
     @endif
