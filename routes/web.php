@@ -17,7 +17,6 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::resource('login', LoginController::class)->only([
   'index',
   'store',
-  'show'
 ]);
 Route::delete('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');

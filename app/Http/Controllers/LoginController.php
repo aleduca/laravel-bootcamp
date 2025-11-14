@@ -39,7 +39,7 @@ class LoginController extends Controller implements HasMiddleware
    */
   public function store(LoginRequest $request)
   {
-    if (Auth::attempt($request->safe()->only(['email', 'password']))) {
+    if (Auth::attempt($request->safe()->only(['email', 'password']), $request->has('remember'))) {
       $request->session()->regenerate();
 
       return redirect()->route('home.index');
