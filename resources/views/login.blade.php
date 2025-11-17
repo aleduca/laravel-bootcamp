@@ -20,6 +20,10 @@
         <div class="bg-red-600 text-white text-center italic p-2 rounded text-sm mb-2">{{ session()->get('error') }}</div>
     @endif
 
+  @if (session()->has('forgot'))
+        <div class="bg-green-600 text-white text-center italic p-2 rounded text-sm mb-2">{{ session()->get('forgot') }}</div>
+    @endif
+
     {{-- @if ($errors->has('error'))
         <div class="bg-red-600 text-white text-center italic p-2 rounded text-sm mb-2">{{ $errors->first('error') }}</div>
     @endif --}}
@@ -54,26 +58,13 @@
           @error('password') <span class="text-red-600 italic text-center">{{ $message }}</span> @enderror
         </div>
 
-        <div class="mb-2">
-          <label for="password_confirmation" class="block text-sm font-medium mb-1">Confirmar Senha</label>
-          <input
-            id="password_confirmation"
-            name="password_confirmation"
-            type="password"
-            class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-indigo-500"
-            placeholder="••••••••"
-          >
-          @error('password_confirmation') <span class="text-red-600 italic text-center">{{ $message }}</span> @enderror
-
-        </div>
-
         <!-- Lembrar login -->
         <div class="flex items-center justify-between">
           <label class="flex items-center space-x-2">
             <input type="checkbox" name="remember" class="text-indigo-600 rounded">
             <span class="text-sm text-gray-600">Lembrar-me</span>
           </label>
-          <a href="#" class="text-sm text-indigo-600 hover:underline">
+          <a href="{{ route('forgot-password.index') }}" class="text-sm text-indigo-600 hover:underline">
             Esqueci minha senha
           </a>
         </div>

@@ -4,6 +4,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LoginController;
@@ -18,5 +19,9 @@ Route::resource('login', LoginController::class)->only([
   'index',
   'store',
 ]);
+Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot-password.index')->middleware('guest');
+Route::get('/forgot-password/{token}', [ForgotPasswordController::class, 'edit'])->name('password.reset')->middleware('guest');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('forgot-password.store')->middleware('guest');
+Route::put('/forgot-password', [ForgotPasswordController::class, 'update'])->name('forgot-password.update')->middleware('guest');
 Route::delete('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
