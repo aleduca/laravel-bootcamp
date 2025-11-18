@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ForgotPasswordNotification;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -96,5 +97,11 @@ class User extends Authenticatable
   public function getFullNameAttribute(): string
   {
     return $this->firstName . ' ' . $this->lastName;
+  }
+
+  public function sendPasswordResetNotification($token)
+  {
+    $url = 'http://localhost:8000/forgot-password/' . $token;
+    $this->notify(new ForgotPasswordNotification($url));
   }
 }

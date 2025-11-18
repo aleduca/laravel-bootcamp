@@ -38,8 +38,6 @@ class ForgotPasswordController extends Controller
       $request->only('email')
     );
 
-    // dd($status);
-
     return $status === Password::ResetLinkSent
       ? back()->with(['sent' => __($status)])
       : back()->withErrors(['error' => __($status)]);
