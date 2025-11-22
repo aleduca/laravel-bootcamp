@@ -45,4 +45,5 @@
   </div>
 @else
   <a href="{{ route('login.index') }}" class="hover:text-indigo-600">Login</a>
+  <a href="{{ route('user.create') }}" class="hover:text-indigo-600">Register</a>
 @endauth
