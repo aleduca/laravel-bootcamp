@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -28,7 +30,13 @@ class UserController extends Controller
    */
   public function store(UserRequest $request)
   {
-    dd('create new user');
+    $data = $request->validated();
+
+    $user = User::create($data);
+
+    Auth::login($user);
+
+    return redirect()->route('home.index');
   }
 
   /**
