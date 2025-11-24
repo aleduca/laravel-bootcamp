@@ -13,7 +13,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('/course', [CourseController::class, 'index'])->name('course.index');
+Route::get('/course', [CourseController::class, 'index'])->middleware('verified')->name('course.index');
 Route::get('/lesson', [LessonController::class, 'index'])->name('lesson.index');
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
