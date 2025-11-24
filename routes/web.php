@@ -11,6 +11,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmailVerifyController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/course', [CourseController::class, 'index'])->middleware('verified')->name('course.index');
@@ -20,6 +21,10 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 
 Route::get('/user/create', [UserController::class, 'create'])->middleware('guest')->name('user.create');
 Route::post('/user', [UserController::class, 'store'])->middleware('guest')->name('user.store');
+
+Route::get('/email/verify', [EmailVerifyController::class, 'index'])->middleware('auth')->name('verification.notice');
+Route::post('/email/verification-notification', [EmailVerifyController::class, 'send'])->middleware('auth')->name('verification.send');
+Route::get('/email/verify/{id}/{hash}', [EmailVerifyController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::resource('login', LoginController::class)->only([
   'index',
