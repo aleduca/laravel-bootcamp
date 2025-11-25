@@ -2,6 +2,7 @@
 
 @section('content')
 
+@foreach ($courses as $course)
 <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
   <img src="https://placehold.co/600x400" class="rounded-xl mb-4" alt="">
   <h2 class="text-lg font-semibold mb-2">Curso Laravel para Iniciantes</h2>
@@ -13,6 +14,7 @@
     <a href="{{ route('course.index') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">Ver mais</a>
   </div>
 </div>
+@endforeach
 
 
 @endsection

@@ -17,7 +17,7 @@
   @yield('fullwidth')
 
   <!-- Conteúdo centralizado -->
-  <main class="max-w-6xl mx-auto py-10 px-4 grid gap-6 md:grid-cols-3">
+  <main class="max-w-6xl mx-auto py-10 px-4 grid gap-6 md:grid-cols-4">
     @yield('content')
   </main>
 
