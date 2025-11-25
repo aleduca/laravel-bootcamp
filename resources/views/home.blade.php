@@ -11,7 +11,7 @@
   </p>
   <div class="flex items-center justify-between">
     <span class="font-bold text-indigo-600">{{ Number::currency($course->price,'BRL') }}</span>
-    <a href="{{ route('course.index') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">Ver mais</a>
+    <a href="{{ route('course.show',$course) }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700">Ver mais</a>
   </div>
 </div>
 @endforeach

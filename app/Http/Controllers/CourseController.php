@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -11,9 +12,7 @@ class CourseController extends Controller
    */
   public function index()
   {
-    return view('course', [
-      'title' => 'Course'
-    ]);
+    //
   }
 
   /**
@@ -35,9 +34,12 @@ class CourseController extends Controller
   /**
    * Display the specified resource.
    */
-  public function show(string $id)
+  public function show(Course $course)
   {
-    //
+    dd($course);
+    return view('course', [
+      'title' => 'Course'
+    ]);
   }
 
   /**

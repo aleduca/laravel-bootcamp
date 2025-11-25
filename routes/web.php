@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmailVerifyController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('/course', [CourseController::class, 'index'])->middleware('verified')->name('course.index');
+Route::get('/course/{course:slug}', [CourseController::class, 'show'])->name('course.show');
 Route::get('/lesson', [LessonController::class, 'index'])->name('lesson.index');
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
