@@ -11,9 +11,7 @@ class LessonController extends Controller
    */
   public function index()
   {
-    return view('lesson', [
-      'title' => 'Lesson'
-    ]);
+    //
   }
 
   /**
@@ -37,7 +35,9 @@ class LessonController extends Controller
    */
   public function show(string $id)
   {
-    //
+    return view('lesson', [
+      'title' => 'Lesson'
+    ]);
   }
 
   /**

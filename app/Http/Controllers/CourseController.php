@@ -36,9 +36,10 @@ class CourseController extends Controller
    */
   public function show(Course $course)
   {
-    dd($course);
+    $course->load('lessons');
     return view('course', [
-      'title' => 'Course'
+      'title' => 'Course',
+      'course' => $course
     ]);
   }
 
