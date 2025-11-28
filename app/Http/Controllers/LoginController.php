@@ -21,7 +21,7 @@ class LoginController extends Controller implements HasMiddleware
    */
   public function index()
   {
-    return view('login', [
+    return view('login.index', [
       'title' => 'Login'
     ]);
   }

@@ -10,7 +10,7 @@
         <ul class="space-y-3 text-gray-700">
           @foreach ($course->lessons as $key => $lesson)
           <li class="flex items-center justify-between">
-            <a href="{{ route('lesson.show',$lesson) }}" class="flex items-center gap-2 hover:text-indigo-600">
+            <a href="{{ route('lesson.show',[$course,$lesson]) }}" class="flex items-center gap-2 hover:text-indigo-600">
               <span class="text-sm">{{ $key + 1 }}.</span> {{ $lesson->title }}
             </a>
             <span>{{ $lesson->duration }}</span>

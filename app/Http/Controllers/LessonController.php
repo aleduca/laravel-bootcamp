@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Lesson;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -33,9 +35,9 @@ class LessonController extends Controller
   /**
    * Display the specified resource.
    */
-  public function show(string $id)
+  public function show(Course $course, Lesson $lesson)
   {
-    return view('lesson', [
+    return view('lesson.show', [
       'title' => 'Lesson'
     ]);
   }
