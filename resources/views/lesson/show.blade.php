@@ -43,7 +43,7 @@
     </div>
 
     <!-- Comentários -->
-    <div class="bg-white rounded-2xl shadow p-6">
+   	  <div class="bg-white rounded-2xl shadow p-6">
       <h2 class="text-lg font-semibold mb-4">Comentários</h2>
 
       <!-- Formulário -->
@@ -59,10 +59,29 @@
       </form>
 
       <!-- Lista de comentários -->
-      <div class="space-y-4">
+      <div class="space-y-6">
+        <!-- Comentário principal -->
         <div class="border-b pb-4">
           <p class="font-semibold">Alexandre Cardoso</p>
-          <p class="text-gray-600">Excelente explicação sobre o Eloquent!</p>
+          <p class="text-gray-600 mb-2">Excelente explicação sobre o Eloquent!</p>
+
+          <!-- Botão responder -->
+          <button class="text-sm text-indigo-600 hover:underline">Responder</button>
+
+          <!-- Respostas -->
+          <div class="ml-6 mt-3 space-y-3 border-l border-gray-200 pl-4">
+            <div>
+              <p class="font-semibold text-sm">Maria Souza</p>
+              <p class="text-gray-600 text-sm">Concordo! A parte sobre relacionamentos foi ótima!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Outro comentário -->
+        <div class="border-b pb-4">
+          <p class="font-semibold">Ana Lima</p>
+          <p class="text-gray-600 mb-2">Poderia mostrar também como usar o with() para otimizar consultas?</p>
+          <button class="text-sm text-indigo-600 hover:underline">Responder</button>
         </div>
       </div>
     </div>
