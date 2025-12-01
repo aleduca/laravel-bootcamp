@@ -34,7 +34,7 @@
 @endsection
 
 @section('content')
-  <div class="md:col-span-2 space-y-6">
+  <div class="md:col-span-3 space-y-6">
     <div class="bg-white rounded-2xl shadow p-6">
       <h1 class="text-2xl font-semibold mb-2">Aula: Trabalhando com Eloquent ORM</h1>
       <p class="text-gray-700">
