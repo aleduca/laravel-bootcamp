@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Services\LessonDetailsService;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -35,19 +36,13 @@ class LessonController extends Controller
 	/**
 	 * Display the specified resource.
 	 */
-	public function show(Course $course, Lesson $lesson)
+	public function show(Course $course, Lesson $lesson, LessonDetailsService $lessonDetailService)
 	{
-		$lesson->load([
-			'comments.user',
-			'comments.replies.user',
-		]);
-
-		$course->load('lessons');
+		$data = $lessonDetailService->getLessonData($course, $lesson);
 
 		return view('lesson.show', [
 			'title' => 'Lesson',
-			'lesson' => $lesson,
-			'course' => $course,
+			...$data,
 		]);
 	}
 
