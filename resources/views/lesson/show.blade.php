@@ -78,11 +78,7 @@
   <aside>
     <div class="bg-white rounded-2xl shadow p-6">
       <h3 class="text-lg font-semibold mb-4">Aulas do Curso</h3>
-      <ul class="space-y-2">
-        @foreach ($course->lessons as $key => $lesson)
-        <li><a href="{{ route('lesson.show',[$course,$lesson]) }}" class="text-indigo-600 hover:underline">{{ $key + 1 }}. {{ $lesson->title }}</a></li>
-        @endforeach
-      </ul>
+      <x-course-lessons :course="$course" :currentLesson="$lesson" />
     </div>
   </aside>
 
