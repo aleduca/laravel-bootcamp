@@ -1,10 +1,10 @@
  @props(['canAccess','course'])
 
  @foreach ($course->lessons as $key => $lesson)
- @if($canAccess)
+ @if($canAccess || $lesson->free)
   <li class="flex items-center justify-between">
     <a href="{{ route('lesson.show',[$course,$lesson]) }}" class="flex items-center gap-2 hover:text-indigo-600">
-      <span class="text-sm">{{ $key + 1 }}.</span> {{ $lesson->title }}
+      <span class="text-sm">✅{{ $key + 1 }}.</span> {{ $lesson->title }}
     </a>
     <span>{{ $lesson->duration }}</span>
   </li>

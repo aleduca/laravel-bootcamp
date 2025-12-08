@@ -4,14 +4,21 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Course;
+use App\Models\Lesson;
 
 class CoursePolicy
 {
-	public function access(User $user, Course $course)
+	public function access(?User $user, Course $course, ?Lesson $lesson = null)
 	{
+		$isFree = $lesson?->free ?? false;
+
+		if (!$user) {
+			return $isFree;
+		}
+
 		return $user->purchases()
 		 ->where('course_id', $course->id)
 		 ->where('payment_status', 'paid')
-		 ->exists();
+		 ->exists() || $isFree;
 	}
 }

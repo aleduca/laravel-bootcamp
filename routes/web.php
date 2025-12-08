@@ -16,7 +16,7 @@ use App\Http\Controllers\EmailVerifyController;
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/course/{course:slug}', [CourseController::class, 'show'])->name('course.show');
 Route::get('/course/{course:slug}/lesson/{lesson:slug}', [LessonController::class, 'show'])
-->middleware('can:access,course')->name('lesson.show');
+->middleware('can:access,course,lesson')->name('lesson.show');
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 

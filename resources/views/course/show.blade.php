@@ -32,11 +32,13 @@
               <p class="text-gray-500 text-sm">Acesso vitalício</p>
               <p class="text-3xl font-semibold text-green-600 mt-1">{{ Number::currency($course->price,'BRL') }}</p>
             </div>
+            @if (!$canAccess)
             <a href="{{ route('checkout.index') }}"
-              class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition"
+            class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition"
             >
-              Comprar Curso
-            </a>
+            Comprar Curso
+          </a>
+          @endif
           </div>
         </div>
       </div>
