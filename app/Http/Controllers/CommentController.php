@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Lesson;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -26,14 +27,20 @@ class CommentController extends Controller
 	/**
 	 * Store a newly created resource in storage.
 	 */
-	public function store(Lesson $lesson, Request $request)
+	public function store(string $id, Request $request)
 	{
 		// $this->authorize('comment', $lesson);
 		$validated = $request->validate([
-			'comment' => 'required|min:10|max:100',
+			'comment' => 'required|min:3|max:100',
 		], [], ['comment' => 'comentário']);
 
-		dd('can comment');
+		Comment::create([
+			'user_id' => Auth::id(),
+			'lesson_id' => $id,
+			'content' => $validated['comment'],
+		]);
+
+		return back()->withFragment('comment')->with('success', 'Comentário cadastrado com sucesso');
 	}
 
 	/**

@@ -9,21 +9,27 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Comment extends Model
 {
-  /** @use HasFactory<\Database\Factories\CommentFactory> */
-  use HasFactory;
+	/** @use HasFactory<\Database\Factories\CommentFactory> */
+	use HasFactory;
 
-  public function lesson(): BelongsTo
-  {
-    return $this->belongsTo(Lesson::class);
-  }
+	protected $fillable = [
+		'user_id',
+		'lesson_id',
+		'content',
+	];
 
-  public function user(): BelongsTo
-  {
-    return $this->belongsTo(User::class);
-  }
+	public function lesson(): BelongsTo
+	{
+		return $this->belongsTo(Lesson::class);
+	}
 
-  public function replies(): HasMany
-  {
-    return $this->hasMany(Reply::class);
-  }
+	public function user(): BelongsTo
+	{
+		return $this->belongsTo(User::class);
+	}
+
+	public function replies(): HasMany
+	{
+		return $this->hasMany(Reply::class);
+	}
 }

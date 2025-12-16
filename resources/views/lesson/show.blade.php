@@ -36,6 +36,9 @@
     @error('comment')
     <div class="bg-red-600 text-white text-center rounded p-2 mb-3">{{ $message }}</div>
     @enderror
+    @session('success')
+    <div class="bg-green-600 text-white text-center rounded p-2 mb-3">{{ $value }}</div>
+    @endsession
     <form class="mb-4" method="POST" action="{{ route('comment.store',$lesson) }}#comment">
       @csrf
       <textarea class="w-full border rounded-lg p-3" rows="3" name="comment" placeholder="Deixe seu comentário..."></textarea>
