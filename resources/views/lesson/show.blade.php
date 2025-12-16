@@ -32,7 +32,7 @@
     <h2 class="text-lg font-semibold mb-4">Comentários ({{ $lesson->comments->count() }})</h2>
 
     <!-- Formulário -->
-    @can('comment',$lesson)
+    @if($canComment)
     @error('comment')
     <div class="bg-red-600 text-white text-center rounded p-2 mb-3">{{ $message }}</div>
     @enderror
@@ -46,7 +46,7 @@
         Enviar
       </button>
     </form>
-    @endcan
+    @endif
 
     <!-- Lista de comentários -->
     @foreach($lesson->comments as $comment)
@@ -57,7 +57,9 @@
         <p class="text-gray-600 mb-2">{{ $comment->content }}</p>
 
         <!-- Botão responder -->
-        <button class="text-sm text-indigo-600 hover:underline">Responder</button>
+        @if ($canComment)
+        <button class="text-sm text-indigo-600 hover:underline cursor-pointer">Responder</button>
+        @endif
 
         <!-- Respostas -->
         @foreach ($comment->replies as $reply)
