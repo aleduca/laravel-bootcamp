@@ -26,9 +26,12 @@ class CommentController extends Controller
 	/**
 	 * Store a newly created resource in storage.
 	 */
-	public function store(Lesson $lesson)
+	public function store(Lesson $lesson, Request $request)
 	{
 		// $this->authorize('comment', $lesson);
+		$validated = $request->validate([
+			'comment' => 'required|min:10|max:100',
+		], [], ['comment' => 'comentário']);
 
 		dd('can comment');
 	}

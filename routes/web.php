@@ -40,8 +40,7 @@ Route::controller(ForgotPasswordController::class)->name('forgot-password.')->pr
 	Route::put('/', 'update')->name('update');
 })->middleware('guest');
 
-Route::post('/comment/{lesson}', [CommentController::class, 'store'])
-->name('comment.store');
+Route::post('/comment/{lesson}', [CommentController::class, 'store'])->name('comment.store');
 
 Route::delete('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
