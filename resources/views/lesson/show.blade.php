@@ -33,6 +33,7 @@
 
     <!-- Formulário -->
     @if($canComment)
+    <x-modal-reply />
     @error('comment')
     <div class="bg-red-600 text-white text-center rounded p-2 mb-3">{{ $message }}</div>
     @enderror
@@ -58,7 +59,10 @@
 
         <!-- Botão responder -->
         @if ($canComment)
-        <button class="text-sm text-indigo-600 hover:underline cursor-pointer">Responder</button>
+        <button command="show-modal" commandfor="dialog" x-data="{}" @click="$dispatch('modal-reply',{
+          comment: @js($comment),
+          replyTo: @js($comment->user->fullName)
+        })" class="text-sm text-indigo-600 hover:underline cursor-pointer">Responder</button>
         @endif
 
         <!-- Respostas -->
