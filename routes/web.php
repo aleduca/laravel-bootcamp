@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmailVerifyController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ReplyController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/course/{course:slug}', [CourseController::class, 'show'])->name('course.show');
@@ -40,6 +41,7 @@ Route::controller(ForgotPasswordController::class)->name('forgot-password.')->pr
 	Route::put('/', 'update')->name('update');
 })->middleware('guest');
 
+Route::post('/comment/reply', [ReplyController::class, 'store'])->name('reply.store');
 Route::post('/comment/{id}', [CommentController::class, 'store'])->name('comment.store');
 
 Route::delete('/logout', [LoginController::class, 'destroy'])->name('login.destroy');

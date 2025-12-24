@@ -60,7 +60,7 @@
         <!-- Botão responder -->
         @if ($canComment)
         <button command="show-modal" commandfor="dialog" x-data="{}" @click="$dispatch('modal-reply',{
-          comment: @js($comment),
+          commentId: @js($comment->id),
           replyTo: @js($comment->user->fullName)
         })" class="text-sm text-indigo-600 hover:underline cursor-pointer">Responder</button>
         @endif
