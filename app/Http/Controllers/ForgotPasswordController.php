@@ -11,89 +11,89 @@ use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   */
-  public function index()
-  {
-    return view('auth.forgot-password');
-  }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    {
+        return view('auth.forgot-password');
+    }
 
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create()
-  {
-    //
-  }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): void
+    {
+        //
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   */
-  public function store(Request $request)
-  {
-    $request->validate(['email' => 'required|email']);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
 
-    $status = Password::sendResetLink(
-      $request->only('email')
-    );
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
 
-    return $status === Password::ResetLinkSent
-      ? back()->with(['sent' => __($status)])
-      : back()->withErrors(['error' => __($status)]);
-  }
+        return $status === Password::ResetLinkSent
+          ? back()->with(['sent' => __($status)])
+          : back()->withErrors(['error' => __($status)]);
+    }
 
-  /**
-   * Display the specified resource.
-   */
-  public function show(string $id)
-  {
-    //
-  }
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id): void
+    {
+        //
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   */
-  public function edit(string $token)
-  {
-    // dd($token);
-    return view('auth.reset-password', ['token' => $token]);
-  }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $token): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    {
+        // dd($token);
+        return view('auth.reset-password', ['token' => $token]);
+    }
 
-  /**
-   * Update the specified resource in storage.
-   */
-  public function update(Request $request)
-  {
-    $request->validate([
-      'token' => 'required',
-      'email' => 'required|email',
-      'password' => 'required|min:4|confirmed',
-    ]);
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:4|confirmed',
+        ]);
 
-    $status = Password::reset(
-      $request->only('email', 'password', 'password_confirmation', 'token'),
-      function (User $user, string $password) {
-        $user->forceFill([
-          'password' => Hash::make($password)
-        ])->setRememberToken(Str::random(60));
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->setRememberToken(Str::random(60));
 
-        $user->save();
+                $user->save();
 
-        event(new PasswordReset($user));
-      }
-    );
+                event(new PasswordReset($user));
+            }
+        );
 
-    return $status === Password::PasswordReset
-      ? redirect()->route('login.index')->with('forgot', __($status))
-      : back()->withErrors(['error' => [__($status)]]);
-  }
+        return $status === Password::PasswordReset
+          ? redirect()->route('login.index')->with('forgot', __($status))
+          : back()->withErrors(['error' => [__($status)]]);
+    }
 
-  /**
-   * Remove the specified resource from storage.
-   */
-  public function destroy(string $id)
-  {
-    //
-  }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id): void
+    {
+        //
+    }
 }

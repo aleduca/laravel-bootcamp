@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Reply extends Model
 {
-	/** @use HasFactory<\Database\Factories\ReplyFactory> */
-	use HasFactory;
+    /** @use HasFactory<\Database\Factories\ReplyFactory> */
+    use HasFactory;
 
-	protected $fillable = [
-		'comment_id', 'content', 'user_id',
-	];
+    protected $fillable = [
+        'comment_id', 'content', 'user_id',
+    ];
 
-	public function comment(): BelongsTo
-	{
-		return $this->belongsTo(Comment::class);
-	}
+    public function comment(): BelongsTo
+    {
+        return $this->belongsTo(Comment::class);
+    }
 
-	public function user(): BelongsTo
-	{
-		return $this->belongsTo(User::class);
-	}
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

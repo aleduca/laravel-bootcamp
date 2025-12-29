@@ -1,24 +1,24 @@
 <?php
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\EmailVerifyController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmailVerifyController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\ReplyController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/course/{course:slug}', [CourseController::class, 'show'])->name('course.show');
 Route::get('/course/{course:slug}/lesson/{lesson:slug}', [LessonController::class, 'show'])
-->middleware('can:access,course,lesson')->name('lesson.show');
+    ->middleware('can:access,course,lesson')->name('lesson.show');
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
@@ -30,15 +30,15 @@ Route::post('/email/verification-notification', [EmailVerifyController::class, '
 Route::get('/email/verify/{id}/{hash}', [EmailVerifyController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::resource('login', LoginController::class)->only([
-	'index',
-	'store',
+    'index',
+    'store',
 ]);
 
 Route::controller(ForgotPasswordController::class)->name('forgot-password.')->prefix('forgot-password')->group(function () {
-	Route::get('/', 'index')->name('index');
-	Route::get('/{token}', 'edit')->name('edit');
-	Route::post('/', 'store')->name('store');
-	Route::put('/', 'update')->name('update');
+    Route::get('/', 'index')->name('index');
+    Route::get('/{token}', 'edit')->name('edit');
+    Route::post('/', 'store')->name('store');
+    Route::put('/', 'update')->name('update');
 })->middleware('guest');
 
 Route::post('/comment/reply', [ReplyController::class, 'store'])->name('reply.store');

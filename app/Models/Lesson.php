@@ -10,21 +10,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Lesson extends Model
 {
-	/** @use HasFactory<\Database\Factories\LessonFactory> */
-	use HasFactory;
+    /** @use HasFactory<\Database\Factories\LessonFactory> */
+    use HasFactory;
 
-	public function course(): BelongsTo
-	{
-		return $this->belongsTo(Course::class);
-	}
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class);
+    }
 
-	public function comments(): HasMany
-	{
-		return $this->hasMany(Comment::class);
-	}
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 
-	public function getDurationAttribute($value)
-	{
-		return CarbonInterval::seconds($value)->cascade()->format('%H:%I:%S');
-	}
+    public function getDurationAttribute($value): string
+    {
+        return CarbonInterval::seconds($value)->cascade()->format('%H:%I:%S');
+    }
 }

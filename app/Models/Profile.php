@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Profile extends Model
 {
-  /** @use HasFactory<\Database\Factories\ProfileFactory> */
-  use HasFactory;
+    /** @use HasFactory<\Database\Factories\ProfileFactory> */
+    use HasFactory;
 
-  public function user(): BelongsTo
-  {
-    return $this->belongsTo(User::class);
-  }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

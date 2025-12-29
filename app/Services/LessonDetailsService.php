@@ -8,21 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class LessonDetailsService
 {
-	public function getLessonData(Course $course, Lesson $lesson)
-	{
-		$lesson->load([
-			'comments' => fn ($q) => $q->latest('id'),
-			'comments.user',
-			'comments.replies.user',
-		]);
+    public function getLessonData(Course $course, Lesson $lesson): array
+    {
+        $lesson->load([
+            'comments' => fn ($q) => $q->latest('id'),
+            'comments.user',
+            'comments.replies.user',
+        ]);
 
-		$course->load('lessons');
+        $course->load('lessons');
 
-		$canComment = Auth::user()?->can('comment', $lesson);
+        $canComment = Auth::user()?->can('comment', $lesson);
 
-		$previous = $course->lessons()->where('id', '<', $lesson->id)->latest('id')->first();
-		$next = $course->lessons()->where('id', '>', $lesson->id)->oldest('id')->first();
+        $previous = $course->lessons()->where('id', '<', $lesson->id)->latest('id')->first();
+        $next = $course->lessons()->where('id', '>', $lesson->id)->oldest('id')->first();
 
-		return compact('lesson', 'course', 'previous', 'next', 'canComment');
-	}
+        return compact('lesson', 'course', 'previous', 'next', 'canComment');
+    }
 }

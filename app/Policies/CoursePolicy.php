@@ -2,23 +2,23 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\User;
 
 class CoursePolicy
 {
-	public function access(?User $user, Course $course, ?Lesson $lesson = null)
-	{
-		$isFree = $lesson?->free ?? false;
+    public function access(?User $user, Course $course, ?Lesson $lesson = null)
+    {
+        $isFree = $lesson?->free ?? false;
 
-		if (!$user) {
-			return $isFree;
-		}
+        if (! $user) {
+            return $isFree;
+        }
 
-		return $user->purchases()
-		 ->where('course_id', $course->id)
-		 ->where('payment_status', 'paid')
-		 ->exists() || $isFree;
-	}
+        return $user->purchases()
+            ->where('course_id', $course->id)
+            ->where('payment_status', 'paid')
+            ->exists() || $isFree;
+    }
 }
