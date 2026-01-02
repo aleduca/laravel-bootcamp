@@ -8,11 +8,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Profile extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProfileFactory> */
-    use HasFactory;
+	/** @use HasFactory<\Database\Factories\ProfileFactory> */
+	use HasFactory;
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+	protected $fillable = [
+		'user_id',
+		'linkedin',
+		'bio',
+	];
+
+	public function user(): BelongsTo
+	{
+		return $this->belongsTo(User::class);
+	}
 }
