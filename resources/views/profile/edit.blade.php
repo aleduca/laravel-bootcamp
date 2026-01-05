@@ -77,9 +77,15 @@
 
   </div>
 
+  <a href="" id="form-avatar"></a>
   <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8 space-y-8">
     @if($isUpdate)
-    <form action="" method="POST" enctype="multipart/form-data" class="space-y-6">
+    @session('success-avatar')
+    <div class="bg-green-600 text-white text-center p-3 rounded-lg text-sm">
+      {{ $value }}
+    </div>
+    @endsession
+    <form action="{{ route('profile.avatar',$profile->id).'#form-avatar' }}" method="POST" enctype="multipart/form-data" class="space-y-6">
       @csrf
       @method('PUT')
 

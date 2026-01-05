@@ -3,18 +3,20 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictTypedCallRector;
 use Rector\TypeDeclaration\Rector\Closure\AddClosureVoidReturnTypeWhereNoReturnRector;
 
 return RectorConfig::configure()
-	->withPaths([
-		__DIR__ . '/app',
-		__DIR__ . '/config',
-		__DIR__ . '/public',
-		__DIR__ . '/routes',
-		__DIR__ . '/tests',
-	])->withSkip([
-		AddClosureVoidReturnTypeWhereNoReturnRector::class,
-	])->withSkipPath(__DIR__ . '/app/Policies/CoursePolicy.php')
-	// uncomment to reach your current PHP version
-	->withPhpSets(php85: true)
-	->withPreparedSets(deadCode: true, typeDeclarations: true, earlyReturn: true);
+    ->withPaths([
+        __DIR__.'/app',
+        __DIR__.'/config',
+        __DIR__.'/public',
+        __DIR__.'/routes',
+        __DIR__.'/tests',
+    ])->withSkip([
+        AddClosureVoidReturnTypeWhereNoReturnRector::class,
+        ReturnTypeFromStrictTypedCallRector::class,
+    ])->withSkipPath(__DIR__.'/app/Policies/CoursePolicy.php')
+    // uncomment to reach your current PHP version
+    ->withPhpSets(php85: true)
+    ->withPreparedSets(deadCode: true, typeDeclarations: true, earlyReturn: true);

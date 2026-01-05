@@ -2,82 +2,104 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
+use App\Models\Profile;
+use App\Services\AvatarService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class ProfileController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function index()
-	{
-		//
-	}
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): void
+    {
+        //
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 */
-	public function create()
-	{
-		//
-	}
+    public function avatar(Request $request, Profile $profile, AvatarService $avatarService)
+    {
+        $request->validate([
+            'avatar' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+        ]);
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
-	public function store(ProfileRequest $request)
-	{
-		$validated = $request->validated();
-		Profile::create([
-			'user_id' => Auth::id(),
-			...$validated,
-		]);
+        $newName = $avatarService->upload(
+            $request->file('avatar'),
+            $profile->avatar,
+            300
+        );
 
-		return back()->with('success-profile', 'Profile created');
-	}
+        $profile->avatar = $newName;
+        $profile->save();
 
-	/**
-	 * Display the specified resource.
-	 */
-	public function show(string $id)
-	{
-		//
-	}
+        return back()->with('success-avatar', 'Avatar uploaded successfully');
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 */
-	public function edit()
-	{
-		$profile = Profile::where('user_id', Auth::id())->first();
-		$isUpdate = false;
-		if ($profile) {
-			$isUpdate = true;
-			$this->authorize('update', $profile);
-		}
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): void
+    {
+        //
+    }
 
-		return view('profile.edit', compact('profile', 'isUpdate'));
-	}
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(ProfileRequest $request)
+    {
+        $validated = $request->validated();
+        Profile::create([
+            'user_id' => Auth::id(),
+            ...$validated,
+        ]);
 
-	/**
-	 * Update the specified resource in storage.
-	 */
-	public function update(ProfileRequest $request, Profile $profile)
-	{
-		$validated = $request->validated();
+        return back()->with('success-profile', 'Profile created');
+    }
 
-		$profile->update($validated);
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id): void
+    {
+        //
+    }
 
-		return back()->with('success-profile', 'Profile updated');
-	}
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(): View
+    {
+        $profile = Profile::where('user_id', Auth::id())->first();
+        $isUpdate = false;
+        if ($profile) {
+            $isUpdate = true;
+            $this->authorize('update', $profile);
+        }
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
-	public function destroy(string $id)
-	{
-		//
-	}
+        return view('profile.edit', compact('profile', 'isUpdate'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(ProfileRequest $request, Profile $profile)
+    {
+        $validated = $request->validated();
+
+        $profile->update($validated);
+
+        return back()->with('success-profile', 'Profile updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id): void
+    {
+        //
+    }
 }
