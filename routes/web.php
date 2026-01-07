@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/course/{course:slug}', [CourseController::class, 'show'])->name('course.show');
 Route::get('/course/{course:slug}/lesson/{lesson:slug}', [LessonController::class, 'show'])
-    ->middleware('can:access,course,lesson')->name('lesson.show');
+	->middleware('can:access,course,lesson')->name('lesson.show');
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
@@ -31,22 +31,22 @@ Route::post('/email/verification-notification', [EmailVerifyController::class, '
 Route::get('/email/verify/{id}/{hash}', [EmailVerifyController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::resource('login', LoginController::class)->only([
-    'index',
-    'store',
+	'index',
+	'store',
 ]);
 
 Route::middleware('guest')->controller(ForgotPasswordController::class)->name('forgot-password.')->prefix('forgot-password')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{token}', 'edit')->name('edit');
-    Route::post('/', 'store')->name('store');
-    Route::put('/', 'update')->name('update');
+	Route::get('/', 'index')->name('index');
+	Route::get('/{token}', 'edit')->name('edit');
+	Route::post('/', 'store')->name('store');
+	Route::put('/', 'update')->name('update');
 });
 
 Route::middleware('auth')->controller(ProfileController::class)->name('profile.')->prefix('profile')->group(function () {
-    Route::get('/edit', 'edit')->name('edit');
-    Route::post('/store', 'store')->name('store');
-    Route::put('/update/{profile}', 'update')->name('update')->middleware('can:update,profile');
-    Route::put('/avatar/{profile}', 'avatar')->name('avatar')->middleware('can:update,profile');
+	Route::get('/edit', 'edit')->name('edit');
+	Route::post('/store', 'store')->name('store');
+	Route::put('/update/{profile}', 'update')->name('update')->middleware('can:update,profile', 'throttle:update-profile');
+	Route::put('/avatar/{profile}', 'avatar')->name('avatar')->middleware('can:update,profile', 'throttle:update-avatar');
 });
 
 Route::post('/comment/reply', [ReplyController::class, 'store'])->name('reply.store');
