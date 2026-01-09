@@ -143,5 +143,110 @@
   </div>
 
 
+  <a href="" id="form-update-user"></a>
+  <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8 space-y-8">
+
+    <!-- Título -->
+    <div class="text-center space-y-2">
+      <h2 class="text-3xl font-extrabold tracking-tight text-gray-800">
+        Dados da Conta
+      </h2>
+
+      <p class="text-gray-500 text-sm">
+        Atualize suas informações de cadastro
+      </p>
+
+      <div class="w-16 h-1 bg-indigo-600 mx-auto rounded-full"></div>
+    </div>
+
+    {{-- Mensagem de sucesso --}}
+    @session('success-user')
+    <div class="bg-green-600 text-white text-center p-3 rounded-lg text-sm">
+      {{ $value }}
+    </div>
+    @endsession
+
+    <!-- Formulário -->
+    <form action="{{ route('user.update',auth()->id()).'#form-update-user' }}" method="POST" class="space-y-6">
+      @csrf
+      @method('PUT')
+
+      <!-- Firstname -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">
+          First name
+        </label>
+
+        @error('firstName')
+        <p class="text-red-600 text-sm italic mb-1">
+          {{ $message }}
+        </p>
+        @enderror
+
+        <input type="text" value="{{ old('firstName') ?? auth()->user()->firstName }}" name="firstName" class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Your firstname">
+      </div>
+
+      <!-- Lastname -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">
+          Last name
+        </label>
+
+        @error('lastName')
+        <p class="text-red-600 text-sm italic mb-1">
+          {{ $message }}
+        </p>
+        @enderror
+
+        <input type="text" value="{{ old('lastName') ?? auth()->user()->lastName }}" name="lastName" class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Your lastname">
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">
+          E-mail
+        </label>
+
+        @error('email')
+        <p class="text-red-600 text-sm italic mb-1">
+          {{ $message }}
+        </p>
+        @enderror
+
+        <input type="email" value="{{ old('email') ?? auth()->user()->email }}" name="email" class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Your email">
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">
+          Password
+        </label>
+
+        @error('password')
+        <p class="text-red-600 text-sm italic mb-1">
+          {{ $message }}
+        </p>
+        @enderror
+
+        <input type="password" name="password" class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm
+                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Your Password">
+      </div>
+
+      <!-- Botão -->
+      <div class="pt-4">
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white
+                 font-semibold py-3 rounded-lg shadow-md
+                 transition-all duration-200 cursor-pointer">
+          Atualizar Dados
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
 </div>
 @endsection
