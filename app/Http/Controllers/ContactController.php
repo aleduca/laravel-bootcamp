@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
+use App\Mail\ContactEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ContactController extends Controller
 {
@@ -27,9 +31,13 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): void
+    public function store(ContactRequest $request): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+        Mail::send(new ContactEmail($validated));
+
+        return back()->with('success', 'Contact Sent');
     }
 
     /**

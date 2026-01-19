@@ -14,7 +14,7 @@ class LoginController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('guest', only: ['index', 'store']),
-            new Middleware('throttle:3,1,login', only: ['store']),
+            new Middleware('throttle:login', only: ['store']),
         ];
     }
 

@@ -142,7 +142,6 @@
     @endif
   </div>
 
-
   <a href="" id="form-update-user"></a>
   <div class="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8 space-y-8">
 

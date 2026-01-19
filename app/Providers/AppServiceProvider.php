@@ -11,25 +11,25 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-	/**
-	 * Register any application services.
-	 */
-	public function register(): void
-	{
-		//
-	}
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        //
+    }
 
-	/**
-	 * Bootstrap any application services.
-	 */
-	public function boot(): void
-	{
-		foreach (['update-profile', 'update-avatar'] as $limiter) {
-			RateLimiter::for($limiter, fn (Request $request) => Limit::perMinute(3)->by(
-				$request->user()?->id ?: $request->ip()
-			));
-		}
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        foreach (['update-profile', 'update-avatar', 'update-user', 'login', 'contact'] as $limiter) {
+            RateLimiter::for($limiter, fn (Request $request) => Limit::perMinute(3)->by(
+                $request->user()?->id ?: $request->ip()
+            ));
+        }
 
-		Route::bind('course_slug', fn (string $value) => Course::where('slug', $value)->firstOrFail());
-	}
+        Route::bind('course_slug', fn (string $value) => Course::where('slug', $value)->firstOrFail());
+    }
 }

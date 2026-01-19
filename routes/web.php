@@ -26,7 +26,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::controller(UserController::class)->name('user.')->prefix('user')->group(function () {
 	Route::get('/create', 'create')->middleware('guest')->name('create');
 	Route::post('/', 'store')->middleware('guest')->name('store');
-	Route::put('/{user}', 'update')->middleware('auth')->name('update');
+	Route::put('/{user}', 'update')->middleware('auth')->name('update')->middleware('throttle:update-user');
 });
 
 Route::get('/email/verify', [EmailVerifyController::class, 'index'])->middleware('auth')->name('verification.notice');
@@ -54,6 +54,8 @@ Route::middleware('auth')->controller(ProfileController::class)->name('profile.'
 
 Route::post('/comment/reply', [ReplyController::class, 'store'])->name('reply.store');
 Route::post('/comment/{id}', [CommentController::class, 'store'])->name('comment.store');
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store')->middleware('throttle:contact');
 
 Route::delete('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
