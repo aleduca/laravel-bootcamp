@@ -15,12 +15,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MyCoursesController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/course/{course:slug}', [CourseController::class, 'show'])->name('course.show');
 Route::get('/course/{course:slug}/lesson/{lesson:slug}', [LessonController::class, 'show'])
 	->middleware('can:access,course,lesson')->name('lesson.show');
 Route::get('/courses', [CoursesController::class, 'index'])->name('courses.index');
+Route::get('/mycourses', [MyCoursesController::class, 'index'])->name('mycourses.index')->middleware('auth', 'verified');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
 Route::controller(UserController::class)->name('user.')->prefix('user')->group(function () {
@@ -48,7 +50,7 @@ Route::middleware('guest')->controller(ForgotPasswordController::class)->name('f
 	Route::put('/', 'update')->name('update');
 });
 
-Route::middleware('auth', 'verified')->controller(ProfileController::class)->name('profile.')->prefix('profile')->group(function () {
+Route::middleware('auth')->controller(ProfileController::class)->name('profile.')->prefix('profile')->group(function () {
 	Route::get('/edit', 'edit')->name('edit');
 	Route::post('/store', 'store')->name('store');
 	Route::put('/update/{profile}', 'update')->name('update')->middleware('can:update,profile', 'throttle:update-profile');
@@ -59,7 +61,6 @@ Route::post('/comment/reply', [ReplyController::class, 'store'])->name('reply.st
 Route::post('/comment/{id}', [CommentController::class, 'store'])->name('comment.store');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store')->middleware('throttle:contact');
-
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 

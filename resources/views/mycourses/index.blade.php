@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="md:col-span-4">
-  <h1 class="text-3xl font-bold mb-8">Courses({{ $courses->total() }})</h1>
+  <h1 class="text-3xl font-bold mb-8">My Courses({{ $courses->total() }})</h1>
 
   <div class="grid md:grid-cols-3 gap-6">
     @foreach ($courses as $course)

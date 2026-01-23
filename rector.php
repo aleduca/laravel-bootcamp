@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictTypedCallRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnUnionTypeRector;
 use Rector\TypeDeclaration\Rector\Closure\AddClosureVoidReturnTypeWhereNoReturnRector;
 
 return RectorConfig::configure()
@@ -15,6 +16,7 @@ return RectorConfig::configure()
         __DIR__.'/tests',
     ])->withSkip([
         AddClosureVoidReturnTypeWhereNoReturnRector::class,
+        ReturnUnionTypeRector::class,
         ReturnTypeFromStrictTypedCallRector::class,
     ])->withSkipPath(__DIR__.'/app/Policies/CoursePolicy.php')
     // uncomment to reach your current PHP version

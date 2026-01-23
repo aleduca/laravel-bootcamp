@@ -13,102 +13,102 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-	/** @use HasFactory<\Database\Factories\UserFactory> */
-	use HasFactory, Notifiable;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var list<string>
-	 */
-	protected $fillable = [
-		'firstName',
-		'lastName',
-		'email',
-		'password',
-	];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'firstName',
+        'lastName',
+        'email',
+        'password',
+    ];
 
-	/**
-	 * The attributes that should be hidden for serialization.
-	 *
-	 * @var list<string>
-	 */
-	protected $hidden = [
-		'password',
-		'remember_token',
-	];
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-	/**
-	 * Get the attributes that should be cast.
-	 *
-	 * @return array<string, string>
-	 */
-	protected function casts(): array
-	{
-		return [
-			'email_verified_at' => 'datetime',
-			'password' => 'hashed',
-		];
-	}
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
-	public function purchases(): HasMany
-	{
-		return $this->hasMany(Purchase::class);
-	}
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class);
+    }
 
-	public function profile(): HasOne
-	{
-		return $this->hasOne(Profile::class);
-	}
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
 
-	public function comments(): HasMany
-	{
-		return $this->hasMany(Comment::class);
-	}
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 
-	public function replies(): HasMany
-	{
-		return $this->hasMany(Reply::class);
-	}
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Reply::class);
+    }
 
-	public function getAvatarColorAttribute(): string
-	{
-		$colors = [
-			'bg-indigo-600',
-			'bg-blue-600',
-			'bg-green-600',
-			'bg-purple-600',
-			'bg-pink-600',
-			'bg-yellow-500',
-			'bg-red-600',
-			'bg-orange-500',
-		];
+    public function getAvatarColorAttribute(): string
+    {
+        $colors = [
+            'bg-indigo-600',
+            'bg-blue-600',
+            'bg-green-600',
+            'bg-purple-600',
+            'bg-pink-600',
+            'bg-yellow-500',
+            'bg-red-600',
+            'bg-orange-500',
+        ];
 
-		// 8/8
-		return $colors[$this->id % count($colors)];
-	}
+        // 8/8
+        return $colors[$this->id % count($colors)];
+    }
 
-	public function getInitialsAttribute(): string
-	{
-		$first = mb_substr($this->firstName ?? '', 0, 1);
-		$last = mb_substr($this->lastName ?? '', 0, 1);
+    public function getInitialsAttribute(): string
+    {
+        $first = mb_substr($this->firstName ?? '', 0, 1);
+        $last = mb_substr($this->lastName ?? '', 0, 1);
 
-		return strtoupper($first . $last);
-	}
+        return strtoupper($first.$last);
+    }
 
-	public function getFullNameAttribute(): string
-	{
-		return $this->firstName . ' ' . $this->lastName;
-	}
+    public function getFullNameAttribute(): string
+    {
+        return $this->firstName.' '.$this->lastName;
+    }
 
-	public function sendPasswordResetNotification($token): void
-	{
-		$url = 'http://localhost:8000/forgot-password/' . $token;
-		$this->notify(new ForgotPasswordNotification($url));
-	}
+    public function sendPasswordResetNotification($token): void
+    {
+        $url = 'http://localhost:8000/forgot-password/'.$token;
+        $this->notify(new ForgotPasswordNotification($url));
+    }
 
-	public function sendEmailVerificationNotification(): void
-	{
-		$this->notify(new VerifyEmailNotification);
-	}
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new VerifyEmailNotification);
+    }
 }
