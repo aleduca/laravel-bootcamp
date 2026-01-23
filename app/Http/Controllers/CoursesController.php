@@ -14,7 +14,7 @@ class CoursesController extends Controller
 	{
 		$courses = Course::paginate(5);
 
-		return view('courses', [
+		return view('courses.index', [
 			'title' => 'Courses',
 			'courses' => $courses,
 		]);
